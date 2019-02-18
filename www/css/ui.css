@@ -1,0 +1,276 @@
+body
+{
+	height:				100%;
+	width:				100%;
+
+	background-color:	#000000;
+}
+
+#d_button_record
+{
+	position:			fixed;
+
+	left:				0%;
+	right:				50%;
+	top:				0%;
+	bottom:				67%;
+
+	background-image: 	url('../img/record.png');
+}
+
+#d_button_play
+{
+	position:			fixed;
+
+	left:				0%;
+	right:				50%;
+	top:				33%;
+	bottom:				34%;
+
+	background-image: 	url('../img/play.png');
+}
+
+#d_button_record_play
+{
+	position:			fixed;
+
+	left:				50%;
+	right:				25%;
+	top:				0%;
+	bottom:				34%;
+
+	background-image: 	url('../img/record_play.png');
+}
+
+#d_button_stop
+{
+	position:			fixed;
+
+	left:				0%;
+	right:				25%;
+	top:				66%;
+	bottom:				0%;
+
+	background-image: 	url('../img/stop.png');
+}
+
+#d_button_exit
+{
+	position:			fixed;
+
+	left:				75%;
+	right:				0%;
+	top:				66%;
+	bottom:				0%;
+
+	background-image: 	url('../img/exit.png');
+}
+
+.button
+{
+	border:				5px;
+	border-color:		#000000;
+	border-style:		solid;
+	background-color:	#303030;
+	background-repeat:	no-repeat;
+	background-position:	center center;
+	background-size:	75px 75px;
+	
+	animation-name:		button_press;
+	animation-duration:	0.5s;
+	animation-iteration-count: 1;
+}
+
+@keyframes button_press
+{
+	0%
+	{
+		background-color:	#ffffff;
+	}
+	100%
+	{
+		background-color:	#303030;
+	}
+}
+
+#d_indicator_recording
+{
+	position:			fixed;
+
+	left:				75%;
+	right:				0%;
+	top:				0%;
+	bottom:				83.5%;
+	
+	overflow:			hidden;
+}
+#d_indicator_img_recording
+{
+	position:			relative;
+	top:				50%;
+	transform:			translateY(-50%);
+	-webkit-transform:	translateY(-50%);
+	margin-left:		auto;
+	margin-right:		auto;
+
+	width:				50px;
+	height:				50px;
+	background-image: 	url('../img/indicator.png');
+	background-repeat:	no-repeat;
+	background-position:	center center;
+	background-size:	50px 50px;
+}
+
+#d_indicator_record_buffer
+{
+	position:			fixed;
+
+	left:				75%;
+	right:				0%;
+	top:				16.5%;
+	bottom:				67%;
+
+	overflow:			hidden;
+}
+#d_indicator_img_record_buffer
+{
+	position:			relative;
+	top:				50%;
+	transform:			translateY(-50%);
+	-webkit-transform:	translateY(-50%);
+	margin-left:		auto;
+	margin-right:		auto;
+
+	width:				50px;
+	height:				50px;
+	background-image: 	url('../img/indicator.png');
+	background-repeat:	no-repeat;
+	background-position:	center center;
+	background-size:	50px 50px;
+}
+
+#d_indicator_playing
+{
+	position:			fixed;
+
+	left:				75%;
+	right:				0%;
+	top:				33%;
+	bottom:				50.5%;
+
+	overflow:			hidden;
+}
+#d_indicator_img_playing
+{
+	position:			relative;
+	top:				50%;
+	transform:			translateY(-50%);
+	-webkit-transform:	translateY(-50%);
+	margin-left:		auto;
+	margin-right:		auto;
+
+	width:				50px;
+	height:				50px;
+	background-image: 	url('../img/indicator.png');
+	background-repeat:	no-repeat;
+	background-position:	center center;
+	background-size:	50px 50px;
+}
+
+#d_indicator_play_buffer
+{
+	position:			fixed;
+
+	left:				75%;
+	right:				0%;
+	top:				49.5%;
+	bottom:				34%;
+
+	overflow:			hidden;
+}
+#d_indicator_img_play_buffer
+{
+	position:			relative;
+	top:				50%;
+	transform:			translateY(-50%);
+	-webkit-transform:	translateY(-50%);
+	margin-left:		auto;
+	margin-right:		auto;
+
+	width:				50px;
+	height:				50px;
+	background-image: 	url('../img/indicator.png');
+	background-repeat:	no-repeat;
+	background-position:	center center;
+	background-size:	50px 50px;
+}
+
+.indicator_recording_active
+{
+	animation-name:		flashing_red;
+	animation-duration:	1.5s;
+	animation-iteration-count: infinite;
+}
+.indicator_recording_inactive
+{
+	background-color:	#000000;
+}
+.indicator_record_buffer_active
+{
+	background-color:	#ff0000;
+}
+.indicator_record_buffer_inactive
+{
+	background-color:	#000000;
+}
+.indicator_playing_active
+{
+	animation-name:		flashing_green;
+	animation-duration:	1.5s;
+	animation-iteration-count: infinite;
+}
+.indicator_playing_inactive
+{
+	background-color:	#000000;
+}
+.indicator_play_buffer_active
+{
+	background-color:	#00ff00;
+}
+.indicator_play_buffer_inactive
+{
+	background-color:	#000000;
+}
+
+@keyframes flashing_red
+{
+	0%
+	{
+		background-color:	#000000;
+	}
+	50%
+	{
+		background-color:	#ff0000;
+	}
+	100%
+	{
+		background-color:	#000000;
+	}
+}
+
+@keyframes flashing_green
+{
+	0%
+	{
+		background-color:	#000000;
+	}
+	50%
+	{
+		background-color:	#00ff00;
+	}
+	100%
+	{
+		background-color:	#000000;
+	}
+}
+
