@@ -3,9 +3,11 @@ var media =
 {
 	record_state:		"stopped",
 	record_position:	0,
+	record_buffer_exists: false,
 
 	play_state:			"stopped",
 	play_position:		0,
+	play_buffer_exists: false,
 
 	button_event: function(button)
 	{
@@ -69,28 +71,61 @@ var media =
 
 		if(true === button.play.rewind)
 		{
+			console.log("media: play rewind");
 		}
 		if(true === button.play.discard)
 		{
+			console.log("media: play discard");
+
+			this.play_buffer_exists = false;
 		}
 		if(true === button.record.save)
 		{
+			console.log("media: record save");
+
+			this.play_buffer_exists = true;
 		}
 		if(true === button.record.discard)
 		{
+			console.log("media: record discard");
+
+			this.record_buffer_exists = false;
 		}
 		if(true === button.record.start)
 		{
+			console.log("media: record start");
+
+			this.record_state = "started";
+			this.record_buffer_exists = true;
 		}
 		if(true === button.record.stop)
 		{
+			console.log("media: record stop");
+
+			this.record_state = "stopped";
 		}
 		if(true === button.play.start)
 		{
+			console.log("media: play start");
+
+			this.play_state = "started";
 		}
 		if(true === button.play.stop)
 		{
+			console.log("media: play stop");
+
+			this.play_state = "stopped";
 		}
+
+		this.indicator_update();
+	},
+
+	indicator_update: function()
+	{
+		ui.indicator_recording_set("started" == this.record_state);
+		ui.indicator_playing_set("started" == this.play_state);
+		ui.indicator_record_buffer_set(true == this.record_buffer_exists);
+		ui.indicator_play_buffer_set(true == this.play_buffer_exists);
 	},
 };
 
