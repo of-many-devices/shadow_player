@@ -1,13 +1,13 @@
 
 var key =
 {
-	key_2_button: function(key)
+	key_2_button: function(key_string)
 	{
-		var button = {};
+		var button = { key_string: "UNSUPPORTED", record: { start: false, stop: false, save: false, discard: false}, play: { start: false, stop: false, rewind: false, discard: false} };
 
 		for(var i=0; i<button_map.length; i++)
 		{
-			if(button_map[i].key == key)
+			if(button_map[i].key_string == key_string)
 			{
 				button = JSON.parse(JSON.stringify(button_map[i])); //dictionary copy is surpisingly complicated!
 			}
@@ -41,19 +41,40 @@ var key =
 			}
 		}
 
-		//console.log("key_2_button: key:"+key+" button:"+JSON.stringify(button));
+		console.log("key_2_button: key_string: "+key_string+" button:"+JSON.stringify(button));
 
 		return(button);
 	},
 
-	key_event: function(key)
+	key_event: function(key_string)
 	{
-		media.button_event(key.key_2_button(key));
+		media.button_event(key.key_2_button(key_string));
 	},
 
 	init: function()
 	{
-		key_events.init(this);
+		document.onkeydown = function(event)
+		{
+			event = event || window.event;
+
+			if(event.keyCode >= 32 && event.keyCode <= 127)
+			{
+				var key_code_string = String.fromCharCode(event.keyCode);
+
+				if(event.shiftKey)
+				{
+					key_code_string = "S+"+key_code_string;
+				}
+				if(event.ctrlKey)
+				{
+					key_code_string = "C+"+key_code_string;
+				}
+
+				key.key_event(key_code_string);
+			}
+		};
+
+		//key_events.init(this);
 	},
 };
 
