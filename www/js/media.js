@@ -83,16 +83,14 @@ var file_gap =
 	},
 };
 
-var media_file_root_dir = cordova.file.externalDataDirectory+"shadow_player";
-
 var media =
 {
-	record_file:		media_file_root_dir + "/record.3gp",
+	record_file:		cordova.file.externalDataDirectory+"shadow_player"+"/record.3gp",
 	recorder:			null,
 	record_state:		"stopped",
 	record_buffer_exists: false,
 
-	play_file:			media_file_root_dir + "/play.3gp",
+	play_file:			cordova.file.externalDataDirectory+"shadow_player"+"/play.3gp",
 	player:				null,
 	play_state:			"stopped",
 	play_buffer_exists: false,
@@ -359,9 +357,9 @@ var media =
 	{
 		file_gap.which(media.record_file, function(){});
 		file_gap.which(media.play_file, function(){});
-		file_gap.which(media_file_root_dir, function(){});
+		file_gap.which(cordova.file.externalDataDirectory+"shadow_player", function(){});
 
-		file_gap.mkdir(media_file_root_dir, function()
+		file_gap.mkdir(cordova.file.externalDataDirectory+"shadow_player", function()
 			{
 
 				media.record_buffer_exists = false;
