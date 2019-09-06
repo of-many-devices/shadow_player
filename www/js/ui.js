@@ -1,13 +1,57 @@
+var os_gap =
+{
+	check_permissions: function()
+	{
+		os_gap.permissions = cordova.plugins.permissions;
+
+		os_gap.requested_permissions =	[
+										os_gap.permissions.WRITE_EXTERNAL_STORAGE,
+										os_gap.permissions.RECORD_AUDIO,
+										os_gap.permissions.MODIFY_AUDIO_SETTINGS,
+										os_gap.permissions.READ_PHONE_STATE
+									];
+
+		os_gap.permissions.checkPermission(os_gap.requested_permissions, os_gap.check_permissions_call_back, os_gap.permission_error);
+	},
+
+	check_permissions_call_back: function(status)
+	{
+		if( !status.hasPermission )
+		{
+			os_gap.permissions.requestPermissions(os_gap.requested_permissions, os_gap.request_permissions_call_back, os_gap.permission_error);
+		}
+	},
+
+	request_permissions_call_back: function(status)
+	{
+		if( !status.hasPermission )
+		{
+			console.log("!!! PERMISSION REFUSAL, EXPECT DYSFUNCTION !!!");
+		}
+	},
+
+	permission_error: function(error)
+	{
+		console.log("permission error: "+error);
+	},
+};
 
 var ui =
 {
-	initialise_first: function()
+	init: function()
 	{
 		document.addEventListener("deviceready", ui.on_device_ready, false);
 	},
 
-	initialise_last: function()
+	on_device_ready: function()
 	{
+		os_gap.check_permissions();
+
+		document.addEventListener("backbutton", ui.on_back_key_down, false);
+
+		//initialise device dependant functionality
+		media.init();
+
 		document.getElementById("d_button_record").addEventListener("click",
 			function(event)
 			{
@@ -36,19 +80,10 @@ var ui =
 			function(event)
 			{
 				media.button_event({ record: {}, play: {}, ui: { exit: true } });
-				setTimeout(navigator.app.exitApp, 500);
 			}.bind(this)
 		);
 
-		media.indicator_update();
 		key.init();
-	},
-
-	on_device_ready: function()
-	{
-		document.addEventListener("backbutton", ui.on_back_key_down, false);
-
-		//initialise device dependant functionality
 	},
 
 	button_down: function(button_id)

@@ -9,7 +9,7 @@ var key =
 		{
 			if(button_map[i].key_string == key_string)
 			{
-				button = JSON.parse(JSON.stringify(button_map[i])); //dictionary copy is surpisingly complicated!
+				button = JSON.parse(JSON.stringify(button_map[i])); //dictionary copy is surprisingly complicated!
 			}
 		}
 

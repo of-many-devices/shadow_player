@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="uk.co.nightsnowgames.shadow_player" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>shadow_player</name>
+    <name>Shadow Player</name>
     <description>
         Yet another record/play audio app
     </description>
@@ -30,5 +30,7 @@
     </platform>
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <plugin name="cordova-plugin-multidex" spec="^0.1.4" />
+    <plugin name="cordova-plugin-media" spec="^5.0.2" />
+    <plugin name="cordova-plugin-android-permissions" spec="^1.0.0" />
     <engine name="android" spec="^7.1.4" />
 </widget>
