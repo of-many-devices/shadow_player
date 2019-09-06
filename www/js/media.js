@@ -85,12 +85,23 @@ var file_gap =
 
 var media =
 {
-	record_file:		cordova.file.externalDataDirectory+"shadow_player"+"/record.3gp",
+	root_path: function()
+	{
+		return(cordova.file.externalDataDirectory+"shadow_player");
+	},
+	record_file: function()
+	{
+		return(media.root_path()+"/record.3gp");
+	},
+	play_file: function()
+	{
+		return(media.root_path()+"/play.3gp");
+	},
+
 	recorder:			null,
 	record_state:		"stopped",
 	record_buffer_exists: false,
 
-	play_file:			cordova.file.externalDataDirectory+"shadow_player"+"/play.3gp",
 	player:				null,
 	play_state:			"stopped",
 	play_buffer_exists: false,
@@ -187,12 +198,12 @@ var media =
 		if((true === button.play.discard) || (true === button.record.save))
 		{
 			console.log("media: play delete");
-			file_gap.rm(media.play_file, function()
+			file_gap.rm(media.play_file(), function()
 				{
 					if(true === button.record.save)
 					{
 						console.log("media: rename record->play");
-						file_gap.mv(media.record_file, media.play_file, function()
+						file_gap.mv(media.record_file(), media.play_file(), function()
 							{
 								media.record_buffer_exists = false;
 								media.play_buffer_exists = true;
@@ -219,7 +230,7 @@ var media =
 		if(true === button.record.discard)
 		{
 			console.log("media: record delete");
-			file_gap.rm(media.record_file, function()
+			file_gap.rm(media.record_file(), function()
 				{
 					media.record_buffer_exists = false;
 					media.button_event_3(button);
@@ -239,13 +250,13 @@ var media =
 		if((true === button.record.discard) || (true === button.record.save))
 		{
 			console.log("media: record attach");
-			media.recorder = media.attach(media.record_file, media.plugin_cb_record_status);
+			media.recorder = media.attach(media.record_file(), media.plugin_cb_record_status);
 		}
 
 		if((true === button.play.discard) || (true === button.record.save))
 		{
 			console.log("media: play attach");
-			media.player = media.attach(media.play_file, media.plugin_cb_play_status);
+			media.player = media.attach(media.play_file(), media.plugin_cb_play_status);
 		}
 
 		if(true === button.play.rewind)
@@ -355,32 +366,32 @@ var media =
 
 	init: function()
 	{
-		file_gap.which(media.record_file, function(){});
-		file_gap.which(media.play_file, function(){});
+		file_gap.which(media.record_file(), function(){});
+		file_gap.which(media.play_file(), function(){});
 		file_gap.which(cordova.file.externalDataDirectory+"shadow_player", function(){});
 
 		file_gap.mkdir(cordova.file.externalDataDirectory+"shadow_player", function()
 			{
 
 				media.record_buffer_exists = false;
-				window.resolveLocalFileSystemURL(media.record_file, function (entry)
+				window.resolveLocalFileSystemURL(media.record_file(), function (entry)
 					{
 						media.record_buffer_exists = true;
 						media.indicator_update();
 					});
 
 				media.play_buffer_exists = false;
-				window.resolveLocalFileSystemURL(media.play_file, function (entry)
+				window.resolveLocalFileSystemURL(media.play_file(), function (entry)
 					{
 						media.play_buffer_exists = true;
 						media.indicator_update();
 					});
 
 				console.log("media: record attach (init)");
-				media.recorder = media.attach(media.record_file, media.plugin_cb_record_status);
+				media.recorder = media.attach(media.record_file(), media.plugin_cb_record_status);
 
 				console.log("media: play attach (init)");
-				media.player = media.attach(media.play_file, media.plugin_cb_play_status);
+				media.player = media.attach(media.play_file(), media.plugin_cb_play_status);
 
 				var get_duration_counter = 0;
 				var get_duration_timer = setInterval(function()
