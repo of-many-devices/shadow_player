@@ -366,6 +366,8 @@ var media =
 
 	init: function()
 	{
+		window.plugins.insomnia.keepAwake();
+
 		file_gap.which(media.record_file(), function(){});
 		file_gap.which(media.play_file(), function(){});
 		file_gap.which(cordova.file.externalDataDirectory+"shadow_player", function(){});
@@ -431,6 +433,8 @@ var media =
 			media.player.stop();
 		}
 		media.player.release();
+
+		window.plugins.insomnia.allowSleepAgain();
 
 		console.log("audio resources released");
 	},
